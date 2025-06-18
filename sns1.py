@@ -7,12 +7,8 @@ headers = {'User-Agent': 'Mozilla/5.0'}
 
 res = requests.get(url, headers=headers)
 res.raise_for_status()
-
 soup = BeautifulSoup(res.text, 'html.parser')
-
 book_items = soup.select('li[data-goods-no]')
-
-# 크롤링 데이터 저장할 리스트
 books = []
 
 for item in book_items:
@@ -35,10 +31,6 @@ for item in book_items:
         '출판사': publisher
     })
 
-# 리스트를 데이터프레임으로 변환
 df = pd.DataFrame(books)
-
-# CSV로 저장
 df.to_csv('yes24_bestseller.csv', index=False, encoding='utf-8-sig')
-
 print("크롤링 완료, yes24_bestseller.csv 파일로 저장되었습니다.")
